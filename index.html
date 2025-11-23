@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sovereign Path | Elevate Your Existence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#050505',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
+                        accent: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transition: 0.5s;
+        }
+
+        .glass-btn:hover::before {
+            left: 100%;
+        }
+
+        .glass-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Glow Effects */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Background Ambiance -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none">
+        <div class="glow-orb w-[500px] h-[500px] bg-blue-900/20 top-[-100px] left-[-100px] animate-pulse-slow"></div>
+        <div class="glow-orb w-[400px] h-[400px] bg-purple-900/10 bottom-0 right-0 animate-pulse-slow" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/5 py-4">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-widest uppercase text-white">Sovereign<span class="text-gray-500">.</span></div>
+            <div class="hidden md:flex space-x-8 text-sm font-light text-gray-400">
+                <a href="#philosophy" class="hover:text-white transition-colors">Philosophy</a>
+                <a href="#curriculum" class="hover:text-white transition-colors">Curriculum</a>
+                <a href="#join" class="hover:text-white transition-colors">Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center px-6">
+        <div class="max-w-4xl mx-auto text-center z-10 pt-20">
+            <div class="reveal mb-6 inline-block px-4 py-1 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest text-gray-400 uppercase">
+                The Architect Protocol
+            </div>
+            <h1 class="reveal text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600 mb-8 leading-tight">
+                Stop Waiting For <br/> <i class="font-serif font-thin text-white">Permission.</i>
+            </h1>
+            <p class="reveal text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                Most men live in quiet desperation, bounded by invisible walls. 
+                This course isn't about adding more to your life—it's about stripping away the illusions that hold you captive.
+            </p>
+            
+            <!-- BUTTON 1 -->
+            <div class="reveal flex flex-col items-center gap-4">
+                <a href="https://www.google.com/url?q=https%3A%2F%2Fpric.app%2FFzinw&sa=D&sntz=1&usg=AOvVaw38S1Z2Kt0h6BeJPlyl2A13" target="_blank" class="glass-btn px-10 py-4 rounded-full font-semibold tracking-wide text-sm md:text-base w-full md:w-auto text-center">
+                    INITIALIZE TRANSFORMATION
+                </a>
+                <span class="text-xs text-gray-600 tracking-wider">INSTANT DIGITAL ACCESS</span>
+            </div>
+        </div>
+        
+        <!-- Abstract Decoration -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/5 rounded-full animate-float opacity-20 pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-white/5 rounded-full animate-float opacity-20 pointer-events-none" style="animation-delay: 1s;"></div>
+    </header>
+
+    <!-- The Problem / Agitation -->
+    <section id="philosophy" class="py-24 px-6 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">The Comfort <span class="text-gray-500">Trap</span></h2>
+                    <div class="space-y-6 text-gray-400 font-light">
+                        <p>
+                            You feel it, don't you? The gnawing sensation that you are capable of exponentially more, yet you remain stuck in the same loops.
+                        </p>
+                        <p>
+                            Society is designed to keep you sedated. Comfortable enough to not rebel, but too distracted to ascend. They sell you cheap dopamine to buy your expensive potential.
+                        </p>
+                        <p class="text-white border-l-2 border-white pl-4 italic">
+                            "The only prison you need to escape is the one in your mind."
+                        </p>
+                    </div>
+                </div>
+                <div class="reveal glass-panel p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-semibold mb-4 text-white">Symptoms of Drift</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fa-solid fa-xmark text-red-500/50"></i> Lack of defined purpose
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fa-solid fa-xmark text-red-500/50"></i> Chronic procrastination
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fa-solid fa-xmark text-red-500/50"></i> Seeking validation from others
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-400">
+                                <i class="fa-solid fa-xmark text-red-500/50"></i> Fear of judgment
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Solution / Curriculum -->
+    <section id="curriculum" class="py-24 px-6 bg-black/40">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">The Blueprint</h2>
+                <p class="text-gray-500">A systematic reconstruction of your operating system.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Module 1 -->
+                <div class="reveal glass-panel p-8 rounded-xl hover:bg-white/5 transition-colors duration-300">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 text-white">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Mental Sovereignty</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Destroy limiting beliefs. Learn to control your focus like a weapon. Master emotional regulation and become unshakeable in chaos.
+                    </p>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="reveal glass-panel p-8 rounded-xl hover:bg-white/5 transition-colors duration-300" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 text-white">
+                        <i class="fa-solid fa-chess-knight"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Strategic Discipline</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Motivation is for amateurs. Build systems that make success inevitable. High-performance routines used by the top 0.1%.
+                    </p>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="reveal glass-panel p-8 rounded-xl hover:bg-white/5 transition-colors duration-300" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 text-white">
+                        <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Value Architecture</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Learn how to become a person of value. Attract opportunities instead of chasing them. The psychology of wealth and influence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-24 px-6 border-y border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <i class="fa-solid fa-quote-left text-4xl text-white/10 mb-8"></i>
+            <h3 class="reveal text-2xl md:text-3xl font-serif italic text-gray-300 mb-8 leading-relaxed">
+                "I spent 5 years trying to figure this out alone. This course condensed the wisdom I needed into 5 hours. I didn't just change my habits; I changed my reality."
+            </h3>
+            <div class="reveal flex items-center justify-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-xs">M.R.</div>
+                <div class="text-left">
+                    <div class="text-white text-sm font-semibold">Marcus R.</div>
+                    <div class="text-gray-500 text-xs">Verified Student</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Offer / Final CTA -->
+    <section id="join" class="py-32 px-6 relative overflow-hidden">
+        <!-- Glow effect behind card -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="glass-panel max-w-3xl mx-auto rounded-3xl p-10 md:p-16 text-center relative z-10 border border-white/10 reveal">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Invest In Yourself</h2>
+            <p class="text-gray-400 mb-8 max-w-md mx-auto">
+                The cost of inaction is far greater than the price of this course. One decision separates your old life from your new one.
+            </p>
+            
+            <div class="flex flex-col items-center justify-center gap-2 mb-10">
+                <span class="text-4xl font-bold text-white">₹999.0</span>
+                <span class="text-sm text-gray-500 line-through">Regular Price ₹6999.0</span>
+            </div>
+
+            <ul class="text-left max-w-sm mx-auto space-y-3 mb-10 text-gray-400 text-sm">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-white"></i> Full Course Access (Lifetime)</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-white"></i> The Sovereign Mindset Audio Files</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-white"></i> Exclusive Community Access</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-white"></i> 30-Day Action Plan PDF</li>
+            </ul>
+
+            <!-- BUTTON 2 -->
+            <a href="https://www.google.com/url?q=https%3A%2F%2Fpric.app%2FFzinw&sa=D&sntz=1&usg=AOvVaw38S1Z2Kt0h6BeJPlyl2A13" target="_blank" class="glass-btn inline-block px-12 py-5 rounded-full font-bold text-lg w-full md:w-auto hover:scale-105 transform transition-transform">
+                SECURE YOUR FUTURE
+            </a>
+            <p class="mt-6 text-xs text-gray-600">Encrypted checkout. Instant Delivery.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/5 text-center text-gray-600 text-xs">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>&copy; 2024 Sovereign Architecture. All rights reserved.</p>
+            <div class="space-x-4">
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Stop observing once revealed
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
+
