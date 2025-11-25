@@ -10,7 +10,6 @@
     <meta name="robots" content="index,follow">
     <meta property="og:title" content="Sovereign | Reality is Negotiable">
     <meta property="og:description" content="Wake up. Escape the script. Install a new architecture for your mind, body, and money.">
-    <!-- Replace this with your actual image URL -->
     <meta property="og:image" content="https://yourdomain.com/sovereign-share-image.jpg">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#000000">
@@ -47,32 +46,43 @@
             background-color: #000;
             color: #fff;
             overflow-x: hidden;
-            cursor: none; /* Custom cursor for desktop (overridden on mobile) */
+            cursor: none;
         }
 
-        /* Custom Cursor */
+        .scanlines::before {
+            content: "";
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 100% 3px;
+            mix-blend-mode: soft-light;
+            opacity: 0.25;
+            z-index: -1;
+        }
+
         #cursor {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
+            border-radius: 9999px;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.1s ease, background 0.2s ease;
+            transition: transform 0.08s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
             mix-blend-mode: difference;
         }
         #cursor.hovered {
-            transform: scale(2.5);
+            transform: scale(3);
             background: rgba(255, 255, 255, 1);
             border-color: transparent;
+            box-shadow: 0 0 40px rgba(255,255,255,0.8);
         }
 
-        /* Loader */
         #loader {
             position: fixed;
             inset: 0;
-            background: #000;
+            background: radial-gradient(circle at top, #111 0, #000 55%);
             z-index: 10000;
             display: flex;
             flex-direction: column;
@@ -81,12 +91,13 @@
             font-family: 'Rajdhani', sans-serif;
         }
         .loading-bar {
-            width: 200px;
+            width: 220px;
             height: 2px;
-            background: #333;
+            background: #222;
             margin-top: 20px;
             position: relative;
             overflow: hidden;
+            border-radius: 999px;
         }
         .loading-bar::after {
             content: '';
@@ -95,36 +106,30 @@
             left: 0;
             height: 100%;
             width: 0%;
-            background: #fff;
+            background: linear-gradient(90deg, #00f0ff, #ffffff, #ff2a2a);
             animation: load 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         @keyframes load {
             0% { width: 0%; }
-            50% { width: 70%; }
+            50% { width: 75%; }
             100% { width: 100%; }
         }
 
-        /* Three.js Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: -2;
             opacity: 0.6;
         }
 
-        /* Holographic Card Tilt */
         .tilt-card {
             transform-style: preserve-3d;
             transform: perspective(1000px);
         }
-        .tilt-content {
-            transform: translateZ(20px);
-        }
 
-        /* Glitch Text */
         .glitch {
             position: relative;
         }
@@ -159,7 +164,6 @@
             80% { clip-path: inset(10% 0 70% 0); }
             100% { clip-path: inset(30% 0 20% 0); }
         }
-
         @keyframes glitch-anim-2 {
             0% { clip-path: inset(10% 0 60% 0); }
             20% { clip-path: inset(30% 0 40% 0); }
@@ -169,27 +173,22 @@
             100% { clip-path: inset(20% 0 50% 0); }
         }
 
-        /* Utility */
         .glass-morphism {
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .text-glow {
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-        /* Hero title tweak for very small screens */
-        .hero-title {
-            /* Tailwind will set base sizes, this is an extra guard */
-        }
+        .hero-title {}
         @media (max-width: 400px) {
             .hero-title {
-                font-size: 2.75rem; /* approx text-4xl/5xl */
+                font-size: 2.75rem;
             }
         }
 
-        /* Disable custom cursor on mobile */
         @media (max-width: 768px) {
             body {
                 cursor: auto;
@@ -199,7 +198,6 @@
             }
         }
 
-        /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
             * {
                 scroll-behavior: auto !important;
@@ -208,90 +206,218 @@
                 transition-duration: 0.001ms !important;
             }
         }
+
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+
+        .btn-holo {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-holo::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 0% 0%, rgba(0,240,255,0.2), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.4s ease;
+            transform: translate3d(-30%, -30%, 0);
+        }
+        .btn-holo:hover::before {
+            opacity: 1;
+            transform: translate3d(0,0,0);
+        }
+
+        .side-chips {
+            position: fixed;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 30;
+        }
+        .chip {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            letter-spacing: 0.15em;
+        }
+
+        .ping-dot {
+            box-shadow: 0 0 20px rgba(0,240,255,0.7);
+        }
+
+        .grid-floor {
+            position: fixed;
+            bottom: -40%;
+            left: 50%;
+            width: 160%;
+            height: 60%;
+            transform: translateX(-50%) perspective(600px) rotateX(70deg);
+            background-image:
+                linear-gradient(#0f172a55 1px, transparent 1px),
+                linear-gradient(90deg, #0f172a55 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.6;
+            z-index: -1;
+            animation: floorGlow 6s ease-in-out infinite alternate;
+        }
+        @keyframes floorGlow {
+            0% { opacity: 0.3; transform: translateX(-50%) perspective(600px) rotateX(70deg) translateY(10px); }
+            100% { opacity: 0.7; transform: translateX(-50%) perspective(600px) rotateX(70deg) translateY(-10px); }
+        }
+
+        .cli-overlay {
+            position: fixed;
+            left: 1rem;
+            bottom: 1rem;
+            max-width: 320px;
+            z-index: 20;
+        }
     </style>
 </head>
-<body class="bg-noise">
+<body class="bg-noise scanlines">
 
-    <!-- Custom Cursor -->
     <div id="cursor"></div>
 
-    <!-- Preloader -->
     <div id="loader" aria-hidden="true">
-        <div class="text-xs uppercase tracking-[0.5em] text-gray-500 mb-2">System Initialization</div>
-        <div class="text-4xl font-display font-bold text-white mb-4" id="loader-text">0%</div>
+        <div class="text-xs uppercase tracking-[0.5em] text-gray-500 mb-2">System Boot</div>
+        <div class="text-4xl md:text-6xl font-display font-bold text-white mb-4" id="loader-text">0%</div>
         <div class="loading-bar"></div>
-        <div class="mt-4 font-mono text-[10px] text-green-500">
-            <p>> CONNECTING TO NEURAL NET...</p>
-            <p>> BYPASSING FIREWALLS...</p>
-            <p>> ACCESS GRANTED.</p>
+        <div class="mt-6 font-mono text-[10px] text-green-500 text-center space-y-1">
+            <p>> INITIALIZING_SOVEREIGN_PROTOCOL...</p>
+            <p>> SCANNING: POTENTIAL_OPERATOR...</p>
+            <p>> STATUS: <span class="text-hologram">SUITABLE</span>. PREPARING UPGRADE...</p>
         </div>
     </div>
 
-    <!-- 3D Background -->
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-    <!-- Overlay Gradient (Vignette) -->
+    <div class="grid-floor" aria-hidden="true"></div>
     <div class="fixed inset-0 pointer-events-none z-[-1] bg-gradient-to-b from-black/80 via-transparent to-black/90"></div>
 
-    <!-- Navigation -->
+    <aside class="side-chips hidden lg:flex flex-col gap-3">
+        <div class="glass-morphism chip px-2 py-3 text-[9px] uppercase tracking-[0.3em] text-gray-300 hover:text-hologram transition-colors">
+            MENTAL
+        </div>
+        <div class="glass-morphism chip px-2 py-3 text-[9px] uppercase tracking-[0.3em] text-gray-300 hover:text-purple-400 transition-colors">
+            BIO
+        </div>
+        <div class="glass-morphism chip px-2 py-3 text-[9px] uppercase tracking-[0.3em] text-gray-300 hover:text-green-400 transition-colors">
+            MONEY
+        </div>
+    </aside>
+
+    <div class="cli-overlay glass-morphism border border-white/10 px-4 py-3 hidden md:block">
+        <div class="text-[10px] font-mono text-gray-400 mb-1 uppercase tracking-[0.2em]">SOVEREIGN@TERMINAL:~</div>
+        <div class="text-[11px] font-mono text-green-400">
+            <span class="text-hologram">&gt;</span> install --mind --body --money<br>
+            <span class="text-hologram">&gt;</span> status: <span class="text-green-400">live</span> • latency: <span class="text-hologram">4ms</span>
+        </div>
+    </div>
+
     <nav class="fixed w-full z-40 top-0 left-0 border-b border-white/5 glass-morphism" role="navigation">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-display font-bold text-lg tracking-widest text-white hover-trigger" data-text="SOVEREIGN">SOVEREIGN</div>
-            <div class="flex items-center gap-6">
-                <div class="hidden md:flex gap-1" aria-hidden="true">
-                    <div class="w-1 h-6 bg-green-500 animate-pulse"></div>
-                    <div class="w-1 h-4 bg-green-500 animate-pulse delay-75"></div>
-                    <div class="w-1 h-8 bg-green-500 animate-pulse delay-150"></div>
+        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_12px_rgba(34,197,94,0.8)]"></div>
+                <div class="font-display font-bold text-sm md:text-lg tracking-[0.35em] text-white hover-trigger" data-text="SOVEREIGN">
+                    SOVEREIGN
                 </div>
-                <a href="https://pric.app/Fzinw" target="_blank" rel="noopener noreferrer" class="hover-trigger text-xs uppercase tracking-widest border border-white/20 px-6 py-2 hover:bg-white hover:text-black transition-all duration-300">
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-1 text-[9px] font-mono text-gray-400">
+                    <span class="uppercase tracking-[0.2em]">Latency:</span>
+                    <span class="text-hologram">4ms</span>
+                    <span class="uppercase tracking-[0.2em] ml-3">Status:</span>
+                    <span class="text-green-400">LIVE</span>
+                </div>
+                <a href="#architecture" class="hidden md:inline-block hover-trigger text-[10px] uppercase tracking-[0.25em] text-gray-400 hover:text-white transition-colors">
+                    Modules
+                </a>
+                <a href="#access-pass" class="hidden md:inline-block hover-trigger text-[10px] uppercase tracking-[0.25em] text-gray-400 hover:text-white transition-colors">
+                    Access
+                </a>
+                <a href="https://pric.app/Fzinw" target="_blank" rel="noopener noreferrer" class="hover-trigger text-[10px] uppercase tracking-[0.3em] border border-white/30 px-5 py-2 hover:bg-white hover:text-black transition-all duration-300">
                     Login
                 </a>
             </div>
         </div>
+        <div class="w-full h-px overflow-hidden">
+            <div class="w-1/3 h-full bg-gradient-to-r from-transparent via-white to-transparent animate-[slide_3s_linear_infinite]"></div>
+        </div>
     </nav>
 
+    <style>
+        @keyframes slide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
+        }
+    </style>
+
     <main>
-        <!-- Hero Section -->
-        <header class="relative min-h-screen flex flex-col justify-center items-center px-6 text-center pt-20">
-            <div class="mb-4 inline-flex items-center gap-2 border border-white/10 px-4 py-1 bg-white/5 rounded-full backdrop-blur-sm">
+        <header class="relative min-h-screen flex flex-col justify-center items-center px-6 text-center pt-24 md:pt-28 section-reveal">
+            <div class="mb-6 inline-flex items-center gap-3 border border-white/10 px-5 py-1.5 bg-white/5 rounded-full backdrop-blur-sm">
                 <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Transmission Live</span>
+                <span class="text-[9px] uppercase tracking-[0.25em] text-gray-300">Transmission Live • v2.1.1</span>
             </div>
 
-            <h1 class="hero-title text-6xl md:text-9xl font-display font-bold text-white mb-6 leading-none mix-blend-difference z-10 glitch" data-text="WAKE UP">
-                WAKE UP
-            </h1>
+            <div class="relative inline-block mb-4">
+                <h1 id="hero-title" class="hero-title text-5xl sm:text-6xl md:text-8xl xl:text-9xl font-display font-bold text-white leading-none mix-blend-difference z-10 glitch" data-text="WAKE UP">
+                    WAKE UP
+                </h1>
+                <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-40 sm:w-56 h-px bg-gradient-to-r from-transparent via-hologram to-transparent"></div>
+            </div>
 
-            <p class="max-w-2xl text-lg md:text-xl text-gray-400 font-light font-body mb-12 leading-relaxed tracking-wide z-10">
-                Reality is negotiable. You have been living in a script written by someone else. 
-                The Sovereign Protocol is the <span class="text-white border-b border-white">firmware update</span> your mind has been screaming for.
+            <p class="max-w-2xl text-base sm:text-lg md:text-xl text-gray-300 font-light font-body mb-8 md:mb-10 leading-relaxed tracking-wide z-10">
+                Reality is negotiable. You've been running on default settings, inside someone else's script. 
+                The Sovereign Protocol is the <span class="text-white border-b border-white">firmware update</span> your mind has been quietly begging for.
             </p>
 
-            <div class="z-10 flex flex-col md:flex-row gap-6 w-full max-w-md">
-                <a href="https://pric.app/Fzinw" target="_blank" rel="noopener noreferrer" class="hover-trigger group relative w-full bg-white text-black h-14 flex items-center justify-center font-display font-bold tracking-widest overflow-hidden">
+            <div class="z-10 flex flex-col md:flex-row gap-4 md:gap-6 w-full max-w-xl items-stretch justify-center">
+                <a href="https://pric.app/Fzinw" target="_blank" rel="noopener noreferrer" class="hover-trigger group relative w-full bg-white text-black h-14 flex items-center justify-center font-display font-bold tracking-[0.3em] overflow-hidden btn-holo">
                     <span class="relative z-10 group-hover:text-white transition-colors duration-300">INITIATE SEQUENCE</span>
-                    <div class="absolute inset-0 bg-black transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-black via-hologram/60 to-black transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                </a>
+                <a href="#glitch" class="hover-trigger w-full h-14 flex items-center justify-center border border-white/20 bg-white/5 font-display text-[11px] tracking-[0.3em] uppercase text-gray-300 hover:bg-white hover:text-black transition-all duration-300">
+                    View the System Error
                 </a>
             </div>
 
-            <div class="absolute bottom-10 animate-bounce text-gray-600 text-[10px] tracking-[0.5em] uppercase">
-                Scroll to Decrypt
+            <div class="mt-6 text-[10px] font-mono uppercase tracking-[0.3em] text-gray-500 flex flex-col items-center gap-2">
+                <span>> No monthly. One decisive override.</span>
+                <span class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                    <span>NPC Mode: <span class="line-through">Enabled</span> <span class="text-hologram">Disabled</span></span>
+                </span>
+            </div>
+
+            <div class="absolute bottom-8 md:bottom-10 flex flex-col items-center gap-2">
+                <div class="animate-bounce text-gray-500 text-[9px] tracking-[0.4em] uppercase">
+                    Scroll to Decrypt
+                </div>
+                <div class="w-px h-10 bg-gradient-to-b from-white/40 to-transparent"></div>
             </div>
         </header>
 
-        <!-- The Problem (Glitch Section) -->
-        <section class="py-32 px-6 relative border-t border-white/10 bg-black/50 backdrop-blur-sm">
+        <section id="glitch" class="py-28 px-6 relative border-t border-white/10 bg-black/60 backdrop-blur-sm section-reveal">
             <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
                 <div class="order-2 md:order-1 relative">
-                    <!-- Abstract UI Decoration -->
                     <div class="absolute -top-10 -left-10 w-20 h-20 border-l border-t border-white/20"></div>
                     <div class="absolute -bottom-10 -right-10 w-20 h-20 border-r border-b border-white/20"></div>
                     
-                    <h2 class="text-4xl md:text-6xl font-display font-bold mb-8 scramble-text" data-value="THE GLITCH">THE GLITCH</h2>
-                    <div class="space-y-6 font-body text-xl text-gray-400 font-light">
-                        <p>Why do you feel tired even when you sleep? Why do you scroll for hours looking for nothing?</p>
-                        <p class="text-white">Your attention is being harvested.</p>
-                        <p>Modern society is a factory designed to produce compliant workers and insatiable consumers. To escape, you don't need "motivation." You need a completely new architecture.</p>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6 md:mb-8 scramble-text" data-value="THE GLITCH">THE GLITCH</h2>
+                    <div class="space-y-5 font-body text-lg text-gray-300 font-light">
+                        <p>Why do you feel tired even when you sleep? Why do you scroll for hours hunting for something you can't name?</p>
+                        <p class="text-white">Because your attention is being harvested, weaponized, and resold back to you.</p>
+                        <p>Modern culture is a factory for compliant workers and addicted consumers. To exit that system, you don't need more "motivation" — you need a different operating system.</p>
+                        <p class="text-sm text-gray-500 font-mono">
+                            > DIAGNOSIS: CHRONIC DOPAMINE FRAGMENTATION<br>
+                            > PRESCRIPTION: SOVEREIGN.PROTOCOL.INSTALL()
+                        </p>
                     </div>
                 </div>
                 
@@ -302,7 +428,7 @@
                         </div>
                         <h3 class="font-display text-2xl mb-2 text-red-500">System Error</h3>
                         <div class="h-px w-full bg-gradient-to-r from-red-500 to-transparent mb-6"></div>
-                        <ul class="space-y-4 font-mono text-xs text-gray-400">
+                        <ul class="space-y-4 font-mono text-xs text-gray-300">
                             <li class="flex justify-between">
                                 <span>> PURPOSE.EXE</span>
                                 <span class="text-red-500">NOT FOUND</span>
@@ -315,156 +441,330 @@
                                 <span>> FINANCIAL_FREEDOM</span>
                                 <span class="text-red-500">ACCESS DENIED</span>
                             </li>
+                            <li class="flex justify-between">
+                                <span>> SELF_RESPECT.SYS</span>
+                                <span class="text-red-500">LOW SIGNAL</span>
+                            </li>
                         </ul>
+                        <div class="mt-6 text-[10px] text-gray-500 uppercase tracking-[0.25em]">
+                            > PATCH AVAILABLE: SOVEREIGN.PROTOCOL
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Solution (Holographic Modules) -->
-        <section class="py-32 px-6 relative">
+        <section class="py-24 px-6 relative section-reveal">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+                    <div>
+                        <h2 class="text-3xl sm:text-4xl font-display font-bold mb-2">TRANSMISSION LOG</h2>
+                        <p class="text-sm text-gray-400 font-mono uppercase tracking-[0.2em]">
+                            From NPC → Operator in 4 stages
+                        </p>
+                    </div>
+                    <div class="text-xs text-gray-400 font-mono space-y-1">
+                        <p>> ESTIMATED UPGRADE TIME: 6–8 WEEKS</p>
+                        <p>> REQUIRED: INTERNET + RUTHLESS HONESTY</p>
+                    </div>
+                </div>
+
+                <div class="relative pl-5 md:pl-10">
+                    <div class="absolute left-1 md:left-3 top-0 bottom-0 w-px bg-gradient-to-b from-hologram/80 via-white/20 to-transparent"></div>
+
+                    <div class="space-y-10">
+                        <div class="flex gap-6 items-start">
+                            <div class="relative mt-1">
+                                <div class="w-3 h-3 rounded-full bg-hologram ping-dot"></div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-mono text-hologram mb-1">PHASE 01</div>
+                                <h3 class="font-display text-xl mb-1">Hard Reset</h3>
+                                <p class="text-sm text-gray-300">
+                                    Audit your inputs: social, digital, nutritional, mental. We strip out the noise that's been hijacking your reward system and rebuild deep focus from scratch.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 items-start">
+                            <div class="relative mt-1">
+                                <div class="w-3 h-3 rounded-full bg-purple-400 ping-dot"></div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-mono text-purple-400 mb-1">PHASE 02</div>
+                                <h3 class="font-display text-xl mb-1">Biochemical Overclock</h3>
+                                <p class="text-sm text-gray-300">
+                                    Sleep, hormones, nutrition, training — configured like you're an athlete in a war, not a civilian in a mall. No fluff, just protocols you can actually follow.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 items-start">
+                            <div class="relative mt-1">
+                                <div class="w-3 h-3 rounded-full bg-green-400 ping-dot"></div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-mono text-green-400 mb-1">PHASE 03</div>
+                                <h3 class="font-display text-xl mb-1">Value Engine</h3>
+                                <p class="text-sm text-gray-300">
+                                    Identify one unfair advantage, wrap it into a skill stack, and plug it into the market. We turn your time from a commodity into a weapon.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 items-start">
+                            <div class="relative mt-1">
+                                <div class="w-3 h-3 rounded-full bg-white ping-dot"></div>
+                            </div>
+                            <div>
+                                <div class="text-xs font-mono text-gray-300 mb-1">PHASE 04</div>
+                                <h3 class="font-display text-xl mb-1">Sovereign Mode</h3>
+                                <p class="text-sm text-gray-300">
+                                    Build a life architecture: routines, environments, relationships, and money systems that keep you dangerous, disciplined, and impossible to ignore.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="py-28 px-6 relative section-reveal">
             <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-white/10 pb-10">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-10">
                     <div>
                         <div class="text-hologram text-xs font-mono mb-2">> LOADING MODULES...</div>
-                        <h2 class="text-4xl md:text-5xl font-display font-bold">THE ARCHITECTURE</h2>
+                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold">THE ARCHITECTURE</h2>
+                        <p class="mt-3 text-sm text-gray-400 max-w-md">
+                            Three cores. One objective: turn you from a passive user into an active architect of your own reality.
+                        </p>
                     </div>
                     <div class="text-right hidden md:block">
-                        <div class="text-xs text-gray-500">VERSION 2.0.4</div>
-                        <div class="text-xs text-gray-500">SECURE CONNECTION</div>
+                        <div class="text-xs text-gray-500">VERSION 2.1.1 • LIFETIME ACCESS</div>
+                        <div class="text-xs text-gray-500">CONNECTION: <span class="text-green-400">ENCRYPTED</span></div>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
-                    <div class="hover-trigger group relative h-[400px] border border-white/10 bg-black/40 overflow-hidden transition-all duration-500 hover:border-hologram/50">
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 z-10"></div>
-                        <!-- Grid background for card -->
-                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <div class="hover-trigger group relative h-[420px] border border-white/10 bg-black/40 overflow-hidden transition-all duration-500 hover:border-hologram/60">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/95 z-10"></div>
+                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 18px 18px;"></div>
                         
-                        <div class="relative z-20 h-full p-8 flex flex-col justify-end group-hover:-translate-y-2 transition-transform duration-500">
-                            <div class="text-6xl font-display text-white/5 absolute top-4 right-4 group-hover:text-hologram/20 transition-colors">01</div>
-                            <h3 class="text-2xl font-bold font-display text-white mb-2 group-hover:text-hologram transition-colors">Mental Sovereignty</h3>
-                            <p class="text-gray-400 font-body text-sm leading-relaxed">Overwrite your limiting beliefs. Install a stoic operating system capable of enduring high-pressure environments without cracking.</p>
+                        <div class="relative z-20 h-full p-8 flex flex-col justify-between group-hover:-translate-y-2 transition-transform duration-500">
+                            <div>
+                                <div class="text-xs font-mono text-hologram mb-2">MODULE 01</div>
+                                <h3 class="text-2xl font-bold font-display text-white mb-3 group-hover:text-hologram transition-colors">Mental Sovereignty</h3>
+                                <p class="text-gray-300 font-body text-sm leading-relaxed mb-4">
+                                    Overwrite limiting scripts. Install a stoic, high-pressure OS that doesn't crack under chaos, exams, or business risk.
+                                </p>
+                            </div>
+                            <ul class="space-y-2 text-[11px] text-gray-400 font-mono">
+                                <li>> ATTENTION FIREWALLS</li>
+                                <li>> ANTI-PROCRASTINATION PROTOCOLS</li>
+                                <li>> RUTHLESS SELF-RESPECT BUILDS</li>
+                            </ul>
+                            <div class="text-[10px] text-gray-500 mt-4 uppercase tracking-[0.2em]">
+                                Output: Calm aggression & laser focus.
+                            </div>
                         </div>
+                        <div class="text-6xl font-display text-white/5 absolute top-4 right-4 group-hover:text-hologram/25 transition-colors">01</div>
                     </div>
 
-                    <!-- Card 2 -->
-                    <div class="hover-trigger group relative h-[400px] border border-white/10 bg-black/40 overflow-hidden transition-all duration-500 hover:border-purple-500/50">
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 z-10"></div>
-                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <div class="hover-trigger group relative h-[420px] border border-white/10 bg-black/40 overflow-hidden transition-all duration-500 hover:border-purple-500/60">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/95 z-10"></div>
+                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 18px 18px;"></div>
                         
-                        <div class="relative z-20 h-full p-8 flex flex-col justify-end group-hover:-translate-y-2 transition-transform duration-500">
-                            <div class="text-6xl font-display text-white/5 absolute top-4 right-4 group-hover:text-purple-500/20 transition-colors">02</div>
-                            <h3 class="text-2xl font-bold font-display text-white mb-2 group-hover:text-purple-500 transition-colors">Bio-Chemical Control</h3>
-                            <p class="text-gray-400 font-body text-sm leading-relaxed">Master your dopamine. Optimize testosterone. Sleep like a predator. Your body is the hardware; we upgrade it to military grade.</p>
+                        <div class="relative z-20 h-full p-8 flex flex-col justify-between group-hover:-translate-y-2 transition-transform duration-500">
+                            <div>
+                                <div class="text-xs font-mono text-purple-400 mb-2">MODULE 02</div>
+                                <h3 class="text-2xl font-bold font-display text-white mb-3 group-hover:text-purple-400 transition-colors">Bio-Chemical Control</h3>
+                                <p class="text-gray-300 font-body text-sm leading-relaxed mb-4">
+                                    Treat your body like high-end hardware. Sleep cycles, hormone optimization, training, and nutrition designed for output, not aesthetics.
+                                </p>
+                            </div>
+                            <ul class="space-y-2 text-[11px] text-gray-400 font-mono">
+                                <li>> DOPAMINE RESET STACKS</li>
+                                <li>> TESTOSTERONE-FRIENDLY LIFESTYLE</li>
+                                <li>> PREDATOR-LEVEL SLEEP PLAYBOOK</li>
+                            </ul>
+                            <div class="text-[10px] text-gray-500 mt-4 uppercase tracking-[0.2em]">
+                                Output: Explosive energy on command.
+                            </div>
                         </div>
+                        <div class="text-6xl font-display text-white/5 absolute top-4 right-4 group-hover:text-purple-400/25 transition-colors">02</div>
                     </div>
 
-                    <!-- Card 3 -->
-                    <div class="hover-trigger group relative h-[400px] border border-white/10 bg-black/40 overflow-hidden transition-all duration-500 hover:border-green-500/50">
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 z-10"></div>
-                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <div class="hover-trigger group relative h-[420px] border border-white/10 bg-black/40 overflow-hidden transition-all duration-500 hover:border-green-500/60">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/95 z-10"></div>
+                        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 18px 18px;"></div>
                         
-                        <div class="relative z-20 h-full p-8 flex flex-col justify-end group-hover:-translate-y-2 transition-transform duration-500">
-                            <div class="text-6xl font-display text-white/5 absolute top-4 right-4 group-hover:text-green-500/20 transition-colors">03</div>
-                            <h3 class="text-2xl font-bold font-display text-white mb-2 group-hover:text-green-500 transition-colors">Value Exchange</h3>
-                            <p class="text-gray-400 font-body text-sm leading-relaxed">Stop chasing money; start attracting it. Learn the dark psychology of influence, negotiation, and high-value skill acquisition.</p>
+                        <div class="relative z-20 h-full p-8 flex flex-col justify-between group-hover:-translate-y-2 transition-transform duration-500">
+                            <div>
+                                <div class="text-xs font-mono text-green-400 mb-2">MODULE 03</div>
+                                <h3 class="text-2xl font-bold font-display text-white mb-3 group-hover:text-green-400 transition-colors">Value Exchange</h3>
+                                <p class="text-gray-300 font-body text-sm leading-relaxed mb-4">
+                                    Stop begging money to notice you. Build skills, leverage, and asymmetric bets so capital has no choice but to orbit you.
+                                </p>
+                            </div>
+                            <ul class="space-y-2 text-[11px] text-gray-400 font-mono">
+                                <li>> SKILL-STACK IDENTIFICATION</li>
+                                <li>> INFLUENCE & NEGOTIATION PRIMERS</li>
+                                <li>> DIGITAL INCOME BLUEPRINTS</li>
+                            </ul>
+                            <div class="text-[10px] text-gray-500 mt-4 uppercase tracking-[0.2em]">
+                                Output: Money as a side-effect.
+                            </div>
                         </div>
+                        <div class="text-6xl font-display text-white/5 absolute top-4 right-4 group-hover:text-green-400/25 transition-colors">03</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Black Card Offer -->
-        <section class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden py-20">
-            <!-- Spinning glow behind -->
-            <div class="absolute w-[800px] h-[800px] bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-full blur-[100px] animate-pulse"></div>
-
-            <div id="pricing-card" class="hover-trigger relative w-full max-w-lg tilt-card cursor-none">
-                <!-- Glass Card -->
-                <div class="glass-morphism rounded-2xl overflow-hidden border border-white/20 relative z-10 backdrop-blur-xl">
-                    <!-- Card Header -->
-                    <div class="bg-white/5 p-8 border-b border-white/10 flex justify-between items-center">
-                        <div class="font-display font-bold tracking-widest">ACCESS PASS</div>
-                        <div class="flex gap-2" aria-hidden="true">
-                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
-                            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
-                            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+        <section class="py-20 px-6 relative section-reveal">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-[1.3fr,1fr] gap-14 items-start">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold mb-4">FIELD DATA</h2>
+                    <p class="text-sm text-gray-400 font-mono mb-6 uppercase tracking-[0.2em]">
+                        What happens when you actually run the protocol
+                    </p>
+                    <div class="grid sm:grid-cols-3 gap-5">
+                        <div class="glass-morphism p-5 border border-white/10">
+                            <div class="text-xs font-mono text-gray-400 mb-2 uppercase tracking-[0.18em]">AVG FOCUS SESSION</div>
+                            <div class="text-3xl font-display text-white">3.2x</div>
+                            <p class="mt-2 text-[11px] text-gray-400">Increase in deep work blocks reported after 21 days.</p>
+                        </div>
+                        <div class="glass-morphism p-5 border border-white/10">
+                            <div class="text-xs font-mono text-gray-400 mb-2 uppercase tracking-[0.18em]">DOPAMINE DRAIN</div>
+                            <div class="text-3xl font-display text-white">-57%</div>
+                            <p class="mt-2 text-[11px] text-gray-400">Reduction in mindless scrolling time per day.</p>
+                        </div>
+                        <div class="glass-morphism p-5 border border-white/10">
+                            <div class="text-xs font-mono text-gray-400 mb-2 uppercase tracking-[0.18em]">INCOME SURGE</div>
+                            <div class="text-3xl font-display text-white">2.4x</div>
+                            <p class="mt-2 text-[11px] text-gray-400">Average client-reported bump over 3 months.</p>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Card Body -->
-                    <div class="p-10 text-center">
-                        <p class="text-gray-400 text-sm uppercase tracking-widest mb-4">Limited Time Override</p>
-                        <div class="flex items-center justify-center gap-4 mb-8">
-                            <span class="text-gray-600 line-through font-mono text-xl">₹3,999</span>
-                            <span class="text-6xl font-display font-bold text-white text-glow">₹999<span class="text-2xl text-gray-500">.0</span></span>
-                        </div>
-
-                        <!-- Holographic List -->
-                        <div class="text-left space-y-4 mb-10 pl-4 border-l border-white/10">
-                            <div class="flex items-center gap-3 text-sm font-body tracking-wide">
-                                <i class="fa-solid fa-check text-hologram"></i> <span>Full Protocol Access</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm font-body tracking-wide">
-                                <i class="fa-solid fa-check text-hologram"></i> <span>Private War Room (Discord)</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm font-body tracking-wide">
-                                <i class="fa-solid fa-check text-hologram"></i> <span>Lifetime Updates</span>
-                            </div>
-                            <div class="flex items-center gap-3 text-sm font-body tracking-wide">
-                                <i class="fa-solid fa-check text-hologram"></i> <span>Iron-Clad Guarantee</span>
-                            </div>
-                        </div>
-
-                        <!-- Trust / Social Proof Block -->
-                        <section class="mt-4 mb-8 text-xs text-gray-400 font-mono text-left space-y-1">
-                            <p>> USERS_DEPLOYED: <span class="text-green-500">217</span></p>
-                            <p>> REFUND_REQUESTS: <span class="text-green-500">0</span></p>
-                            <p>> LAST_ACTIVITY: <span class="text-hologram">3 MIN AGO</span></p>
-                        </section>
-
-                        <!-- Buy Button -->
-                        <a href="https://pric.app/Fzinw" target="_blank" rel="noopener noreferrer" class="block w-full bg-white text-black font-display font-bold py-4 hover:scale-[1.02] transition-transform duration-200">
-                            AUTHORIZE PAYMENT
-                        </a>
+                <div class="glass-morphism p-6 border border-white/10">
+                    <div class="text-xs font-mono text-gray-400 mb-3 uppercase tracking-[0.2em]">
+                        ENCRYPTED FEEDBACK // WAR ROOM LOGS
                     </div>
-                    
-                    <!-- Shine Effect -->
-                    <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="space-y-5 text-sm text-gray-300 font-body">
+                        <p class="border-l border-hologram/40 pl-3 text-xs italic text-gray-300">
+                            "Week 3 I realized I've never actually seen my brain this quiet and this sharp at the same time."
+                        </p>
+                        <p class="border-l border-purple-400/40 pl-3 text-xs italic text-gray-300">
+                            "Stopped doomscrolling at 2am. Started shipping projects at 6am. My friends think I'm on something."
+                        </p>
+                        <p class="border-l border-green-400/40 pl-3 text-xs italic text-gray-300">
+                            "First time I feel like the main character in my own life instead of a side NPC." 
+                        </p>
+                    </div>
+                    <div class="mt-5 text-[10px] text-gray-500 font-mono uppercase tracking-[0.2em]">
+                        > IDENTITIES: REDACTED • OPERATIVES: VERIFIED
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="access-pass" class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden py-20 section-reveal">
+            <div class="absolute w-[900px] h-[900px] bg-gradient-to-r from-blue-900/25 via-purple-900/30 to-emerald-900/25 rounded-full blur-[120px] animate-pulse"></div>
+
+            <div id="pricing-card" class="hover-trigger relative w-full max-w-xl tilt-card cursor-none">
+                <div class="relative rounded-3xl p-[1px] bg-gradient-to-tr from-hologram via-purple-500 to-green-400">
+                    <div class="glass-morphism rounded-[22px] overflow-hidden border border-white/10 relative z-10 backdrop-blur-2xl">
+                        <div class="bg-white/5 p-6 md:p-8 border-b border-white/10 flex justify-between items-center">
+                            <div>
+                                <div class="font-display font-bold tracking-[0.3em] text-[11px] uppercase">ACCESS PASS</div>
+                                <div class="mt-1 text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em]">
+                                    One-time override • Lifetime updates
+                                </div>
+                            </div>
+                            <div class="flex gap-2" aria-hidden="true">
+                                <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                                <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-8 md:p-10 text-center">
+                            <p class="text-gray-400 text-xs uppercase tracking-[0.25em] mb-4">Limited Time Override • INDIA DROP</p>
+                            <div class="flex flex-col items-center justify-center gap-2 mb-8">
+                                <div class="flex items-center justify-center gap-4">
+                                    <span class="text-gray-500 line-through font-mono text-lg">₹3,999</span>
+                                    <span class="text-5xl md:text-6xl font-display font-bold text-white text-glow">
+                                        ₹999<span class="text-2xl text-gray-500">.0</span>
+                                    </span>
+                                </div>
+                                <div class="text-[11px] text-gray-400 font-mono uppercase tracking-[0.2em]">
+                                    ≈ One night out with friends • Except this one pays you back
+                                </div>
+                            </div>
+
+                            <div class="text-left space-y-3 mb-8 pl-4 border-l border-white/15">
+                                <div class="flex items-center gap-3 text-xs font-body tracking-wide">
+                                    <i class="fa-solid fa-check text-hologram"></i> <span>Full Sovereign Protocol (All 3 modules)</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs font-body tracking-wide">
+                                    <i class="fa-solid fa-check text-hologram"></i> <span>Private War Room (Discord) with live ops & breakdowns</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs font-body tracking-wide">
+                                    <i class="fa-solid fa-check text-hologram"></i> <span>Lifetime updates as the protocol evolves</span>
+                                </div>
+                                <div class="flex items-center gap-3 text-xs font-body tracking-wide">
+                                    <i class="fa-solid fa-check text-hologram"></i> <span>Iron-Clad Guarantee — keep the upgrades or your money back</span>
+                                </div>
+                            </div>
+
+                            <section class="mb-8 text-[11px] text-gray-300 font-mono text-left grid grid-cols-2 gap-4">
+                                <div>
+                                    <p>> USERS_DEPLOYED: <span class="text-green-400">217</span></p>
+                                    <p>> REFUND_REQUESTS: <span class="text-green-400">0</span></p>
+                                </div>
+                                <div>
+                                    <p>> LAST_ACTIVITY: <span class="text-hologram">3 MIN AGO</span></p>
+                                    <p>> REGION: <span class="text-gray-300">IN / GLOBAL</span></p>
+                                </div>
+                            </section>
+
+                            <a href="https://pric.app/Fzinw" target="_blank" rel="noopener noreferrer" class="btn-holo hover-trigger block w-full bg-white text-black font-display font-bold py-4 hover:scale-[1.02] transition-transform duration-200 tracking-[0.3em] text-[11px] uppercase">
+                                AUTHORIZE PAYMENT
+                            </a>
+
+                            <div class="mt-4 text-[10px] text-gray-500 font-mono uppercase tracking-[0.2em]">
+                                > If nothing changes in 30 days, you shouldn't pay. Simple.
+                            </div>
+                        </div>
+
+                        <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/8 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
                 </div>
                 
-                <!-- Depth Shadow -->
-                <div class="absolute -bottom-10 left-10 right-10 h-10 bg-black/50 blur-xl rounded-full z-0"></div>
+                <div class="absolute -bottom-10 left-10 right-10 h-10 bg-black/70 blur-2xl rounded-full z-0"></div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="border-t border-white/5 bg-black py-10 text-center relative z-10">
-        <div class="text-[10px] uppercase tracking-[0.5em] text-gray-600 mb-4">End of Transmission</div>
+        <div class="text-[9px] uppercase tracking-[0.5em] text-gray-600 mb-4">End of Transmission</div>
         <div class="font-display font-bold text-white text-xl">SOVEREIGN</div>
-        <p class="text-gray-700 text-xs mt-4">&copy; 2025. All Rights Reserved.</p>
+        <p class="text-gray-700 text-[11px] mt-3">&copy; 2025. All Rights Reserved. Reality remains negotiable.</p>
     </footer>
 
     <script>
-        // Shared state for cursor + camera
         const cursor = document.getElementById('cursor');
         const hoverTriggers = document.querySelectorAll('.hover-trigger, a, button');
         let mouseX = 0;
         let mouseY = 0;
 
-        // --- 1. Custom Cursor + Mouse Tracking ---
         document.addEventListener('mousemove', (e) => {
-            // Custom cursor
             if (cursor) {
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
                 cursor.style.transform = 'translate(-50%, -50%)';
             }
-
-            // Values for Three.js camera sway
             mouseX = (e.clientX - window.innerWidth / 2) * 0.05;
             mouseY = (e.clientY - window.innerHeight / 2) * 0.05;
         });
@@ -478,7 +778,6 @@
             });
         });
 
-        // --- 2. Loader Logic ---
         window.addEventListener('load', () => {
             const loaderText = document.getElementById('loader-text');
             const loader = document.getElementById('loader');
@@ -501,7 +800,6 @@
             }, 100);
         });
 
-        // --- 3. Scramble Text Effect ---
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const scrambleElements = document.querySelectorAll(".scramble-text");
 
@@ -532,7 +830,18 @@
             }
         });
 
-        // --- 4. 3D Holographic Tilt (Pricing Card) ---
+        const revealSections = document.querySelectorAll('.section-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealSections.forEach(sec => revealObserver.observe(sec));
+
         const card = document.getElementById('pricing-card');
 
         if (card) {
@@ -541,12 +850,11 @@
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
-                // Only apply tilt when mouse is near the card
-                if (x > -100 && x < rect.width + 100 && y > -100 && y < rect.height + 100) {
+                if (x > -120 && x < rect.width + 120 && y > -120 && y < rect.height + 120) {
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
                     
-                    const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                    const rotateX = ((y - centerY) / centerY) * -10;
                     const rotateY = ((x - centerX) / centerX) * 10;
 
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
@@ -556,13 +864,12 @@
             });
         }
 
-        // --- 5. Three.js Warp Speed Tunnel ---
         const canvas = document.querySelector('#bg-canvas');
         if (canvas && typeof THREE !== 'undefined') {
             const scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x000000, 0.001);
+            scene.fog = new THREE.FogExp2(0x000000, 0.0012);
 
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1200);
             camera.position.z = 10;
 
             const renderer = new THREE.WebGLRenderer({
@@ -573,63 +880,58 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
 
-            // Star Particles
             const geometry = new THREE.BufferGeometry();
-            const counts = 3000; // Reduced from 6000 for performance
+            const counts = 3200;
             const positions = new Float32Array(counts * 3);
-            const velocities = new Float32Array(counts);
 
             for (let i = 0; i < counts * 3; i += 3) {
-                const r = 40 + Math.random() * 100; // Radius
-                const theta = 2 * Math.PI * Math.random(); // Angle
+                const r = 40 + Math.random() * 120;
+                const theta = 2 * Math.PI * Math.random();
                 const x = r * Math.cos(theta);
                 const y = r * Math.sin(theta);
-                const z = (Math.random() - 0.5) * 2000;
+                const z = (Math.random() - 0.5) * 2200;
 
                 positions[i] = x;
                 positions[i + 1] = y;
                 positions[i + 2] = z;
-                
-                velocities[i / 3] = Math.random();
             }
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
             const material = new THREE.PointsMaterial({
-                size: 0.7,
+                size: 0.75,
                 color: 0xffffff,
                 transparent: true,
-                opacity: 0.8,
+                opacity: 0.85,
                 sizeAttenuation: true
             });
 
             const starField = new THREE.Points(geometry, material);
             scene.add(starField);
 
-            // Scroll interaction for speed
             let scrollSpeed = 0;
             let targetScrollSpeed = 0;
             
             window.addEventListener('scroll', () => {
-                targetScrollSpeed = 5; // Burst of speed on scroll
+                targetScrollSpeed = 5;
                 clearTimeout(window.scrollTimeout);
                 window.scrollTimeout = setTimeout(() => {
                     targetScrollSpeed = 0;
-                }, 100);
+                }, 120);
             });
 
             const animate = () => {
                 requestAnimationFrame(animate);
 
-                scrollSpeed += (targetScrollSpeed - scrollSpeed) * 0.1;
+                scrollSpeed += (targetScrollSpeed - scrollSpeed) * 0.08;
 
                 const positions = starField.geometry.attributes.position.array;
                 
                 for (let i = 2; i < counts * 3; i += 3) {
-                    positions[i] += 2 + scrollSpeed; 
+                    positions[i] += 2.2 + scrollSpeed; 
 
-                    if (positions[i] > 200) {
-                        positions[i] = -1000;
+                    if (positions[i] > 260) {
+                        positions[i] = -1100;
                     }
                 }
                 starField.geometry.attributes.position.needsUpdate = true;
@@ -643,7 +945,6 @@
 
             animate();
 
-            // Resize handler
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
